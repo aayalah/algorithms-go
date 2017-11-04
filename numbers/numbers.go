@@ -37,3 +37,31 @@ func complexNumberMultiply(a string, b string) string {
 	c2.NewComplexNumber(b)
 	return c1.Multiply(c2)
 }
+
+func countBits(num int) []int {
+	res := make([]int, num+1)
+	if num == 0 {
+		return []int{0}
+	}
+
+	if num == 1 {
+		return []int{0, 1}
+	}
+
+	res[0] = 0
+	res[1] = 1
+	res[2] = 1
+
+	lastPowerOfTwo := 2
+
+	for i := 3; i <= num; i += 1 {
+		diff := i - lastPowerOfTwo
+		if diff == lastPowerOfTwo {
+			res[i] = 1
+			lastPowerOfTwo = i
+		} else {
+			res[i] = res[lastPowerOfTwo] + res[diff]
+		}
+	}
+	return res
+}
