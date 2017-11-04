@@ -42,3 +42,23 @@ func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 	}
 	return res
 }
+
+func removeNthFromEnd(head *ListNode, n int) *ListNode {
+	pos := findAndRemoveNthFromEnd(head, n)
+	if pos == n {
+		head = head.Next
+	}
+	return head
+}
+
+func findAndRemoveNthFromEnd(node *ListNode, n int) int {
+	if node == nil {
+		return 0
+	}
+
+	pos := findAndRemoveNthFromEnd(node.Nexxt, n)
+	if pos == n {
+		node.Next = node.Next.Next
+	}
+	return pos + 1
+}
