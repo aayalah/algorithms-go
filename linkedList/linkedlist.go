@@ -56,7 +56,7 @@ func findAndRemoveNthFromEnd(node *ListNode, n int) int {
 		return 0
 	}
 
-	pos := findAndRemoveNthFromEnd(node.Nexxt, n)
+	pos := findAndRemoveNthFromEnd(node.Next, n)
 	if pos == n {
 		node.Next = node.Next.Next
 	}
