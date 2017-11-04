@@ -38,7 +38,7 @@ func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 		}
 	}
 	if co > 0 {
-		currentNode.Next = &ListNode(1, nil)
+		currentNode.Next = &ListNode{1, nil}
 	}
 	return res
 }
