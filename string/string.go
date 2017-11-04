@@ -58,3 +58,40 @@ func longestPalindrome(s string) string {
 
 	return ans
 }
+
+func convert(s string, numRows int) string {
+	runeArr := []rune(s)
+	rowArrs := make([][]rune, numRows)
+
+	for i := 0; i < numRows; i += 1 {
+		rowArrs[i] = make([]rune, 0)
+	}
+
+	startIndex := 0
+	for startIndex < len(runeArr) {
+		startRow := 0
+		for i := startRow; i < numRows; i += 1 {
+			if startIndex >= len(runeArr) {
+				break
+			}
+			rowArrs[i] = append(rowArrs[i], runeArr[startIndex])
+			startIndex += 1
+		}
+
+		startRow = numRows - 2
+		for j := startRow; j < 0; j -= 1 {
+			if startIndex >= len(runeArr) {
+				break
+			}
+
+			rowArrs[j] = append(rowArrs[j], runeArr[startIndex])
+			startIndex += 1
+		}
+	}
+
+	res := make([]rune, 0)
+	for row := 0; row < numRows; row += 1 {
+		res = append(res, rowArrs[row]...)
+	}
+	return string(res)
+}
