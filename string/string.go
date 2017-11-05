@@ -95,3 +95,37 @@ func convert(s string, numRows int) string {
 	}
 	return string(res)
 }
+
+
+func countSubstrings(s string) int {
+  table := make([][]bool, len(s))
+  for i := 0; i < len(s); i += 1 {
+    table[i] = make([]boolm len(s))
+  }
+
+  numberSub := 0
+
+  for i := 0; i < len(s); i += 1 {
+    table[i][i] = true
+    numberSub += 1
+  }
+
+  for i := 0; i < len(s) - 1;  i += 1 {
+    if s[i] = s[i+1] {
+      numberSub += 1
+      table[i][i+1] = true
+    }
+  }
+
+  for k := 3; k <= len(s); k += 1 {
+    for i := 0; i <= len(s) - k; i += 1 {
+      end := i + k - 1
+      if table[i+1][end - 1] && s[i] == s[end] {
+        table[i][end] = true
+        numberSub += 1
+      }
+    }
+  }
+
+  return numberSub
+}
