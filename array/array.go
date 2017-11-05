@@ -1,5 +1,7 @@
 package array
 
+import "sort"
+
 func countBattleships(board [][]byte) int {
 	numShips := len(board)
 	height := len(board)
@@ -54,4 +56,50 @@ func findDuplicates(nums []int) []int {
 		}
 	}
 	return res
+}
+
+type queue [][]int
+
+func (q queue) Len() int {
+	return len(q)
+}
+
+func (q queue) Less(i, j int) bool {
+	if q[i][0] > q[j][0] {
+		return true
+	}
+
+	if q[i][0] == q[j][0] {
+		return q[i][1] < q[j][1]
+	}
+
+	return false
+}
+
+func (q queue) Swap(i, j int) {
+	tmp := q[i]
+	q[i] = q[j]
+	q[j] = tmp
+}
+
+func reconstructQueue(people [][]int) [][]int {
+	q := queue(people)
+	sort.Sort(q)
+
+	for i := 1; i < len(people); i += 1 {
+		if q[i][1] != i {
+			insert(q, i, q[i][1])
+		}
+	}
+	return q
+}
+
+func insert(arr [][]int, s, f int) {
+	tmp := arr[s]
+
+	for i := s; i > f; i -= 1 {
+		arr[i] = arr[i-1]
+	}
+
+	arr[f] = tmp
 }
