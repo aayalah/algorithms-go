@@ -1,6 +1,9 @@
 package array
 
-import "sort"
+import (
+	"math"
+	"sort"
+)
 
 func countBattleships(board [][]byte) int {
 	numShips := len(board)
@@ -102,4 +105,60 @@ func insert(arr [][]int, s, f int) {
 	}
 
 	arr[f] = tmp
+}
+
+func singleNonDuplicate(nums []int) int {
+	return recSingleNonDuplicate(nums, 0, len(nums)-1)
+}
+
+func recSingleNonDuplicate(nums []int, s, f int) int {
+	if s == f {
+		return nums[s]
+	} else if s > f && f >= 0 {
+		return nums[f]
+	} else if s > f {
+		return nums[s]
+	}
+
+	mInd := (f + s) / 2
+	mVal := nums[mInd]
+
+	leftInd := mInd - 1
+	rightInd := mInd + 1
+
+	lenLeft := 0
+	if nums[leftInd] == mVal {
+		lenLeft = leftInd - s
+	} else {
+		lenLeft = mInd - s
+	}
+
+	if lenLeft < 0 {
+		lenLeft = 0
+	}
+
+	lenRight := f - rightInd
+	if nums[rightInd] == mVal {
+		lenRight = f - rightInd
+	} else {
+		lenRight = f - mInd
+	}
+
+	if lenRight < 0 {
+		lenRight = 0
+	}
+
+	if nums[leftInd] != mVal && nums[rightInd] != mVal {
+		return mVal
+	}
+
+	remLeft := math.Mod(float64(lenLeft), 2.0)
+	remRight := math.Mod(float64(lenRight), 2.0)
+
+	if remRight > 0 {
+		return recSingleNonDuplicate(nums, f-lenRight+1, f)
+	} else if remLeft > 0 {
+		return recSingleNonDuplicate(nums, s, s+lenLeft-1)
+	}
+	return -1
 }
