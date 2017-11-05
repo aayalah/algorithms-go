@@ -162,3 +162,25 @@ func recSingleNonDuplicate(nums []int, s, f int) int {
 	}
 	return -1
 }
+
+func numberOfArithmeticSlices(A []int) int {
+	table := make([][]bool, len(A))
+	count := 0
+	for i := 0; i < len(A); i += 1 {
+		if A[i+1]-A[i] == A[i+2]-A[i+1] {
+			count += 1
+			table[i][i+2] = true
+		}
+	}
+
+	for k := 4; k <= len(A); k += 1 {
+		for j := 0; j <= len(A)-k; j += 1 {
+			end := j + k - 1
+			if table[j][end-1] && A[end-1]-A[end] == A[j]-A[j+1] {
+				table[j][end] = true
+				count += 1
+			}
+		}
+	}
+	return count
+}

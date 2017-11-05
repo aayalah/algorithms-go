@@ -100,7 +100,7 @@ func convert(s string, numRows int) string {
 func countSubstrings(s string) int {
   table := make([][]bool, len(s))
   for i := 0; i < len(s); i += 1 {
-    table[i] = make([]boolm len(s))
+    table[i] = make([]bool, len(s))
   }
 
   numberSub := 0
