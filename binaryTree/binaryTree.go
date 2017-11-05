@@ -33,3 +33,31 @@ func findMax(arr []int, s, f int) (max int, index int) {
 		}
 	}
 }
+
+type Result struct {
+	Val   int
+	Level int
+}
+
+func findBottomLeftValue(root *TreeNode) int {
+	res := new(Result)
+	res.Val = root.Val
+	res.Level = 0
+
+	recurseFindBottomLeftValue(root, 0, res)
+	return res.Val
+}
+
+func recurseFindBottomLeftValue(node *TreeNode, l int, res *Result) {
+	if node == nil {
+		return
+	}
+
+	recurseFindBottomLeftValue(node.Left, l+1, res)
+	recurseFindBottomLeftValue(node.Right, l+1, res)
+
+	if l > res.Level {
+		res.Val = node.Val
+		res.Level = 1
+	}
+}

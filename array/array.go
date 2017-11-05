@@ -54,5 +54,4 @@ func findDuplicates(nums []int) []int {
 		}
 	}
 	return res
-
 }
